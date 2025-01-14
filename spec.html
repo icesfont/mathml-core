@@ -2887,6 +2887,12 @@
               The <dfn>radical glyph</dfn> is the glyph obtained as a result of running
               <a>get a glyph</a> corresponding to the U+221A SQUARE ROOT character
               given <code>dir</code>.
+              <div class="note">
+                This may not exist if it's not possible to obtain such a glyph,
+                along with variables that depend on this.
+                In such a case, fallback layout is performed and these variables
+                are not used.
+              </div>
             </p>
             <p>
               The <dfn>radical gap</dfn> is given by
@@ -2917,6 +2923,15 @@
               <img src="figures/msqrtbox.svg">
               <figcaption>Box model for the <code>&lt;msqrt&gt;</code> element</figcaption>
             </figure>
+            <p>
+              If no radical glyph exists, then fall back to the layout algorithm of
+              <a href="#layout-of-mtext"></a>.
+              <!--
+                note: perhaps prepend the content with a square root character?
+                If so, then we don't want to serialize the msqrt with the square root
+                character -- only add it during layout. but this still lacks the overbar
+               -->
+            </p>
             <p>
               The <a>min-content inline size</a>
                (respectively <a>max-content inline size</a>)
@@ -2996,7 +3011,8 @@
               shown on figure <a href="#figure-box-msqrt"></a>
               using the same algorithm as in
               <a href="#square-root"></a>
-              in order to produce a margin box B (represented in green).
+              in order to produce a margin box B (represented in green)
+              (which may also be the result of fallback layout).
             </p>
             <figure id="figure-box-mroot">
               <img src="figures/mrootbox.svg">
